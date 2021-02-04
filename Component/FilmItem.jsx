@@ -1,18 +1,17 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
 
-import { getImageFromApi } from "../Api/TMDBAPI";
+import { getImageFromApi, ifImageExist } from "../Api/TMDBAPI";
 
 class FilmItem extends React.Component {
   
   render() {
     
     const {film, displayDetailForFilm} = this.props
-   
     return (
       <TouchableOpacity style={styles.main_container} onPress={()=> displayDetailForFilm(film.id)}>
         <Image
-          style={styles.image}
+          style={film.poster_path !== null ? styles.image : [styles.image, {backgroundColor:'gray'}]}
           source={{uri: getImageFromApi(film.poster_path)}}
         />
         <View style={styles.content_container}>
